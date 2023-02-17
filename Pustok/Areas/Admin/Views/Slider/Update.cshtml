@@ -1,0 +1,59 @@
+﻿@model Slider
+<div class="container">
+    <h1>Update Slider</h1>
+    <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label asp-for="Title1" class="form-label">Title1</label>
+            <input asp-for="Title1" class="form-control" placeholder="Title1">
+            <span asp-validation-for="Title1" style="color:red;"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Title2" class="form-label">Title2</label>
+            <input asp-for="Title2" class="form-control" placeholder="Title2">
+            <span asp-validation-for="Title2" style="color:red;"></span>
+
+        </div>
+        <div class="mb-3">
+            <label asp-for="RedirectUrl" class="form-label">Redirect Url</label>
+            <input asp-for="RedirectUrl" class="form-control" placeholder="Redirect Url">
+            <span asp-validation-for="RedirectUrl" style="color:red;"></span>
+
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ButtonText" class="form-label">ButtonText</label>
+            <input asp-for="ButtonText" class="form-control" placeholder="Price">
+            <span asp-validation-for="ButtonText" style="color:red;"></span>
+        </div>
+
+
+        <div class="row align-items-center">
+            <div class="mb-3 col-md-4">
+                <label asp-for="Desc" class="form-label">Desc</label>
+                <textarea class="form-control" asp-for="Desc" rows="5" placeholder="Description"></textarea>
+                <span asp-validation-for="Desc" class="text-danger"></span>
+            </div>
+
+
+            <div class="mb-3">
+                <label asp-for="Order" class="form-label">Order</label>
+                <input asp-for="Order" class="form-control" placeholder="Order">
+                <span asp-validation-for="Order" class="text-danger"></span>
+
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ImageFile" class="form-label">ImageFile</label>
+                <input asp-for="ImageFile" class="form-control" placeholder="Image Url">
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+
+            </div>
+            <div style="width:200px">
+                <img style="max-width:100%" src="~/uploads/sliders/@Model.ImageUrl" />
+            </div>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+
+</div>

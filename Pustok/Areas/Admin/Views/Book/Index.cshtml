@@ -1,0 +1,56 @@
+﻿@model List<Book>
+@{
+    int counter = 0;
+}
+
+@section css{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.16/sweetalert2.min.css" integrity="sha512-NvuRGlPf6cHpxQqBGnPe7fPoACpyrjhlSNeXVUY7BZAj1nNhuNpRBq3osC4yr2vswUEuHq2HtCsY2vfLNCndYA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+}
+<div class="container" >
+    <div class="d-flex" style="justify-content:space-around; align-items:center">
+        <h1>Books:</h1>
+        <a class="btn btn-primary" asp-controller="book" asp-action="create">Create</a>
+    </div>
+    
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Name</th>
+                <th scope="col">SalePrice</th>
+                <th scope="col">CostPrice</th>
+                    <th scope="col">BookCode</th>
+                    @*<th scope="col">Image</th>*@
+                    <th scope="col">Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Book book in Model)
+                {
+                    counter++;
+                    <tr>
+                        <th scope="row">@counter</th>
+                        <td>@book.Name</td>
+                        <td>@book.SalePrice</td>
+                        <td>@book.CostPrice</td>
+                        <td>@book.Code</td>
+                        <td>
+                        @*<div style="width:200px">
+                            <img style="max-width:100%" src="~/uploads/books/@book.ImageUrl">
+                        </div>*@
+                        
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" asp-controller="book" asp-action="update" asp-route-id="@book.Id">Update</a>
+                        <a class="btn btn-danger delete-button" asp-controller="book" asp-action="delete" asp-route-id="@book.Id" data-id="@book.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    
+</div>
+@section Scripts{
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.16/sweetalert2.min.js" integrity="sha512-4aFcnPgoxsyUPgn8gNinplVIEoeBizjYPTpmOaUbC3VZQCsRnduAOch9v0Pn30yTeoWq1rIZByAE4/Gg79VPEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+}

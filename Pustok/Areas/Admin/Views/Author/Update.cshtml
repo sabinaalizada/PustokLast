@@ -1,0 +1,16 @@
+﻿@model Author
+<div class="container">
+    <h1>Create Author</h1>
+    <form method="post">
+        <div class="mb-3">
+            <label asp-for="FullName" class="form-label">FullName</label>
+            <input asp-for="FullName" class="form-control" placeholder="FullName">
+            <span asp-validation-for="FullName" style="color:red;"></span>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+
+</div>
+

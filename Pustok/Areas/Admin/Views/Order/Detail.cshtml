@@ -1,0 +1,42 @@
+﻿@model Order
+@{
+    int count = 0;
+}
+
+@section css{
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+}
+
+    <div class="container" style="min-height:50vh">
+        <h1>Details</h1>
+        <div class="card" style="max-width:100vw">
+            <div class="card-body" style="max-width:100vw">
+                <p style="font-weight:bold">OrderId : @Model.Id</p>
+                <p style="font-weight:bold">Member Name : @Model.FullName</p>
+                <p style="font-weight:bold">Email : @Model.Email</p>
+                <p style="font-weight:bold">Country : @Model.Country</p>
+                <p style="font-weight:bold">City : @Model.City</p>
+                <p style="font-weight:bold">Address : @Model.Address</p>
+                <p style="font-weight:bold">ZipCode : @Model.ZipCode</p>
+                <p style="font-weight:bold">Phone : @Model.Phone</p>
+                <p style="font-weight:bold">Note : @Model.Note</p>
+                <p style="font-weight:bold">Total Price : @Model.TotalPrice</p>
+                <p style="font-weight:bold">Order Status<span style="font-size:15px;padding:9px 16px;" class="badge text-bg-@(Model.OrderStatus==OrderStatus.Pending? "secondary":(Model.OrderStatus==OrderStatus.Accepted ? "success": "danger" ))">@Model.OrderStatus</span></p>
+
+            </div>
+
+
+            <ul class="list-group list-group-flush">
+            @foreach (var item in Model.OrderItems.Where(x => x.OrderId == Model.Id))
+            {
+                count++;
+                <li class="list-group-item">@count - @item.BookName @item.Count x @((item.SalePrice * (1 - (item.DiscountPrice / 100))))</li>
+            }
+
+            </ul>
+        <div class="card-body">
+            <a asp-action="accept" asp-controller="order" asp-route-id="@Model.Id" class="btn btn-success">Accept</a>
+            <a asp-action="reject" asp-controller="order" asp-route-id="@Model.Id" class="btn btn-danger">Reject</a>
+        </div>
+    </div>
+</div>

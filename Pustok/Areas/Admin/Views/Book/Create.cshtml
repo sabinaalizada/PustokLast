@@ -1,0 +1,130 @@
+﻿@model Book
+<div class="container-fluid">
+    <h1>Create Book</h1>
+    <form method="post" asp-action="create" enctype="multipart/form-data">
+        <div class="row align-items-center">
+            <div class="mb-3 col-md-3">
+                <label asp-for="Name" class="form-label">Name</label>
+                <input asp-for="Name" class="form-control" placeholder="Name">
+                <span asp-validation-for="Name" style="color:red;"></span>
+            </div>
+            <div class="mb-3 col-md-2">
+                <label asp-for="CostPrice" class="form-label">CostPrice</label>
+                <input asp-for="CostPrice" class="form-control" placeholder="CostPrice">
+                <span asp-validation-for="CostPrice" style="color:red;"></span>
+
+            </div>
+            <div class="mb-3 col-md-2">
+                <label asp-for="SalePrice" class="form-label">SalePrice</label>
+                <input asp-for="SalePrice" class="form-control" placeholder="SalePrice">
+                <span asp-validation-for="SalePrice" style="color:red;"></span>
+
+            </div>
+            <div class="mb-3 col-md-2">
+                <label asp-for="DisCountPrice" class="form-label">DisCountPrice</label>
+                <input asp-for="DisCountPrice" class="form-control" placeholder="DisCountPrice">
+                <span asp-validation-for="DisCountPrice" style="color:red;"></span>
+
+            </div>
+
+            <div class="mb-3 col-md-2">
+                <label asp-for="Code" class="form-label">Code</label>
+                <input asp-for="Code" class="form-control" placeholder="Code">
+                <span asp-validation-for="Code" style="color:red;"></span>
+
+            </div>
+
+        </div>
+        <div class="row align-items-center">
+            <div class="mb-3 col-md-4">
+                <label asp-for="Desc" class="form-label">Desc</label>
+                <textarea class="form-control" asp-for="Desc" rows="5" placeholder="Description"></textarea>
+                <span asp-validation-for="Desc" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="AuthorId" class="form-label">AuthorId</label>
+                @*<select class="form-select" aria-label="Default select example" asp-for="AuthorId">
+                    @foreach (Author item in ViewBag.Authors)
+                    {
+                        <option value="@item.Id">@item.FullName</option>
+                    }
+                </select>*@
+                <select class="form-select" aria-label="Default select example" asp-for="AuthorId" asp-items="@(new SelectList(ViewBag.Authors,"Id","FullName"))">
+                    </select>
+                <span asp-validation-for="AuthorId" class="text-danger"></span>
+
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="CategoryId" class="form-label">CategoryId</label>
+                @*<select class="form-select" aria-label="Default select example" asp-for="CategoryId">
+                    @foreach (Category item in ViewBag.Categories)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>*@
+                <select class="form-select" aria-label="Default select example" asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Categories,"Id","Name"))">
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ImageFiles" class="form-label">ImageFiles</label>
+                <input asp-for="ImageFiles" class="form-control" placeholder="Image Url">
+                <span asp-validation-for="ImageFiles" class="text-danger"></span>
+
+            </div>
+        </div>
+        <div >
+            <div class="form-check col-md-4" style="padding-top: 16px;">
+                <input class="form-check-input my-1" style="transform : scale(2)" asp-for="IsAvailable">
+                <label class="form-check-label" style="margin-left:5px" asp-for="IsAvailable">
+                    IsAvailable
+                </label>
+                <span asp-validation-for="IsAvailable" class="text-danger"></span>
+            </div>
+
+            <div class="form-check col-md-4" style="padding-top: 16px;">
+                <input class="form-check-input my-1" style="transform : scale(2)" asp-for="IsNew">
+                <label class="form-check-label" style="margin-left:5px" asp-for="IsNew">
+                    IsNew
+                </label>
+                <span asp-validation-for="IsNew" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-md-2">
+                <label asp-for="BookCount" class="form-label">Book Count</label>
+                <input asp-for="BookCount" class="form-control" placeholder="Count">
+                <span asp-validation-for="BookCount" style="color:red;"></span>
+
+            </div>
+            <div class="form-check col-md-4" style="padding-top: 16px;">
+                <input class="form-check-input my-1" style="transform : scale(2)" asp-for="IsFeatured">
+                <label class="form-check-label" style="margin-left:5px" asp-for="IsFeatured">
+                    IsFeatured
+                </label>
+                <span asp-validation-for="IsFeatured" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div style="padding-top:20px">
+            <div class="mb-3">
+                <label asp-for="PosterImageFile" class="form-label">PosterImageFile</label>
+                <input asp-for="PosterImageFile" class="form-control" placeholder="PosterImageFile">
+                <span asp-validation-for="PosterImageFile" class="text-danger"></span>
+
+            </div>>
+            <div class="mb-3">
+                <label asp-for="HoverImageFile" class="form-label">HoverImageFile</label>
+                <input asp-for="HoverImageFile" class="form-control" placeholder="HoverImageFile">
+                <span asp-validation-for="HoverImageFile" class="text-danger"></span>
+
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+
+</div>
+

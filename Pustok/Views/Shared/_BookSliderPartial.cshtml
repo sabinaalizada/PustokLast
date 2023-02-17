@@ -1,0 +1,71 @@
+﻿@model List<Book>
+
+
+<div class="product-slider multiple-row  slider-border-multiple-row  sb-slick-slider"
+     data-slick-setting='{
+                            "autoplay": true,
+                            "autoplaySpeed": 8000,
+                            "slidesToShow": 5,
+                            "rows":1,
+                            "dots":true
+                        }' data-slick-responsive='[
+                            {"breakpoint":1200, "settings": {"slidesToShow": 3} },
+                            {"breakpoint":768, "settings": {"slidesToShow": 2} },
+                            {"breakpoint":480, "settings": {"slidesToShow": 1} },
+                            {"breakpoint":320, "settings": {"slidesToShow": 1} }
+                        ]'>
+    @foreach (Book book in Model)
+    {
+        if(book.BookCount>0)
+        {
+            <div class="single-slide">
+                <div class="product-card">
+                    <div class="product-header">
+                        <a asp-controller="book" asp-action="detail" asp-route-id="@book.Id" class="author">
+                            @book.Author.FullName
+                        </a>
+                        <h3><a asp-controller="book" asp-action="detail" asp-route-id="@book.Id">@book.Name</a></h3>
+                    </div>
+                    <div class="product-card--body">
+                        <div class="card-image">
+                            <img src="~/uploads/books/@book.bookImages.FirstOrDefault(x=>x.IsPoster==true)?.ImageUrl" alt="">
+                            <div class="hover-contents">
+                                <a asp-controller="book" asp-action="detail" asp-route-id="@book.Id" class="hover-image">
+                                    <img src="~/uploads/books/@book.bookImages.FirstOrDefault(x=>x.IsPoster==false)?.ImageUrl" alt="">
+                                </a>
+                                <div class="hover-btns">
+                                    <a asp-action="AddToBasket" asp-controller="home" asp-route-bookid="@book.Id" class="single-btn add-to-basket">
+                                        <i class="fas fa-shopping-basket"></i>
+                                    </a>
+                                    <a href="wishlist.html" class="single-btn">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                    <a href="compare.html" class="single-btn">
+                                        <i class="fas fa-random"></i>
+                                    </a>
+                                    <a href="#" data-toggle="modal" data-target="#quickModal"
+                               class="single-btn">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-block">
+                            @if (book.DisCountPrice > 0)
+                            {
+                                <span class="price">£@(book.CostPrice - (book.SalePrice * book.DisCountPrice) / 100)</span>
+                                <del class="price-old">£@book.SalePrice</del>
+                                <span class="price-discount">@book.DisCountPrice %</span>
+                            }
+                            else
+                            {
+                                <span class="price">£@book.SalePrice</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+</div>

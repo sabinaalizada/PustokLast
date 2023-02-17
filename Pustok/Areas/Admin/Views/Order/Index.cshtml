@@ -1,0 +1,43 @@
+﻿@model List<Order>
+@{
+    int count = 0;
+}
+@section css{
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+}
+
+    <div class="container" style="min-height:50vh">
+        <h1>Orders</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">OrderId</th>
+                    <th scope="col">User Status</th>
+                    <th scope="col">Member name</th>
+                    <th scope="col">TotalPrice</th>
+                    <th scope="col">OrderStatus</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var order in Model)
+            {
+                count++;
+                <tr>
+                    <th scope="row">@count</th>
+                    <td>@order.Id</td>
+                    <td>@(order.AppUserId!=null? "Member":"Guest")</td>
+                    <td>@order.FullName</td>
+                    <td>@order.TotalPrice.ToString("0.00") $</td>
+                    <td><span style="font-size:15px;padding:9px 16px;" class="badge text-bg-@(order.OrderStatus==OrderStatus.Pending? "secondary":(order.OrderStatus==OrderStatus.Accepted ? "success": "danger" ))">@order.OrderStatus</span></td>
+
+                    
+                    <td><a asp-action="detail" asp-controller="order" asp-route-id="@order.Id" class="btn btn-info text-white">Detail</a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</div>

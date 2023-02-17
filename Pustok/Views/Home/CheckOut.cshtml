@@ -1,0 +1,137 @@
+﻿@model OrderViewModel
+@{
+	double totalprice = 0;
+}
+	<div class="site-wrapper" id="top">
+		<section class="breadcrumb-section">
+			<h2 class="sr-only">Site Breadcrumb</h2>
+			<div class="container">
+				<div class="breadcrumb-contents">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+							<li class="breadcrumb-item active">Checkout</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</section>
+		<main id="content" class="page-section inner-page-sec-padding-bottom space-db--20">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- Checkout Form s-->
+						<div class="checkout-form">
+							<div class="row row-40">
+								<div class="col-lg-7 mb--20">
+									<!-- Billing Address -->
+									<div id="billing-form" class="mb-40">
+										<h4 class="checkout-title">Billing Address</h4>
+										<form asp-action="order" asp-controller="home" method="post" id="orderForm">
+										<div class="row">										<div class="col-md-6 col-12 mb--20">
+												<label asp-for="FullName">FullName</label>
+												<input asp-for="FullName" placeholder="FullName">
+												<span asp-validation-for="FullName" style="color:red;">FullName</span>
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label asp-for="Country">Country</label>
+												<input asp-for="Country" placeholder="Country">
+												<span asp-validation-for="Country" style="color:red;">Country</span>
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label asp-for="Email">Email Address*</label>
+												<input asp-for="Email" type="email" placeholder="Email Address">
+												<span asp-validation-for="Email" style="color:red;">Email yazilmalidir</span>
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label asp-for="Phone">Phone no*</label>
+												<input asp-for="Phone" placeholder="Phone number">
+												<span asp-validation-for="Phone" style="color:red;">Phone yazilmalidir</span>
+											</div>
+											<div class="col-12 mb--20">
+												<label asp-for="Address">Address*</label>
+												<input asp-for="Address" placeholder="Address line ">
+												<span asp-validation-for="Address" style="color:red;">Address</span>
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label asp-for="City">Town/City*</label>
+												<input asp-for="City" placeholder="Town/City">
+												<span asp-validation-for="City" style="color:red;">City</span>
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label asp-for="ZipCode">Zip Code*</label>
+												<input asp-for="ZipCode" type="text" placeholder="Zip Code">
+												<span asp-validation-for="ZipCode" style="color:red;">ZipCode</span>
+											</div>
+											<div class="order-note-block mt--30">
+												<label asp-for="Note">Order notes</label>
+												<textarea asp-for="Note" id="order-note" cols="30" rows="10" class="order-note"
+														  placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+												<span asp-validation-for="Note" style="color:red;">Note</span>
+											</div>
+										</div>
+										</form>
+									</div>
+									<!-- Shipping Address -->
+									
+								</div>
+								<div class="col-lg-5">
+									<div class="row">
+										<!-- Cart Total -->
+										<div class="col-12">
+											<div class="checkout-cart-total">
+												<h2 class="checkout-title">YOUR ORDER</h2>
+												<h4>Product <span>Total</span></h4>
+												<ul>
+													@foreach (var item in Model.CheckOutItemViewModels)
+												{
+													double price = (item.Book.SalePrice * (1 - item.Book.DisCountPrice / 100)) * item.Count;
+
+													<li>
+														<span class="left ">@item.Book.Name X @item.Count</span> <span class="right">$@price.ToString("0.00")</span>
+														<a class="decrease-count" style="color:red" asp-action="RemoveFromBasket" asp-controller="home" asp-route-bookid="@item.Book.Id">X</a>
+																			</li>
+
+													totalprice += price;
+
+													<div width: 170px;>
+														<img src="~/uploads/books/@item.Book.bookImages?.FirstOrDefault(x=>x.IsPoster==true)?.ImageUrl" alt="">
+													</div>
+												}
+													
+												</ul>
+												<p>Total Price <span>$@totalprice.ToString("0.00")</span></p>
+												<p>Shipping Fee <span>$00.00</span></p>
+											<h4>Grand Total <span>$@totalprice.ToString("0.00")</span></h4>
+												<div class="method-notice mt--25">
+													<article>
+														<h3 class="d-none sr-only">blog-article</h3>
+														Sorry, it seems that there are no available payment methods for
+														your state. Please contact us if you
+														require
+														assistance
+														or wish to make alternate arrangements.
+													</article>
+												</div>
+
+												<div class="term-block">
+													<input type="checkbox" id="accept_terms2">
+													<label for="accept_terms2">
+														I’ve read and accept the terms &
+														conditions
+													</label>
+												</div>
+											<button type="submit" form="orderForm" class="place-order w-100">Place order</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+	<!--=================================
+

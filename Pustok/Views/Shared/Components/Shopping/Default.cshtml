@@ -1,0 +1,59 @@
+﻿@model List<ShoppingCardViewModel>
+
+
+@{
+    double totalprice = 0;
+    int count = 0;
+    
+}
+
+
+        <div class="cart-dropdown-block">
+            @foreach (var item in Model)
+            {
+                 double price =(item.Book.SalePrice * (1 - item.Book.DisCountPrice / 100)) * item.Count;
+        count += item.Count;
+        totalprice += price;
+        <div class=" single-cart-block ">
+                <div class="cart-product">
+                    <a href="product-details.html" class="image">
+                        <img src="~/uploads/books/@item.Book.bookImages.FirstOrDefault(x=>x.IsPoster==true)?.ImageUrl" alt="">
+                    </a>
+                    <div class="content">
+                        <h3 class="title">
+                            <a href="product-details.html">
+                                @item.Book.Name
+                            </a>
+                        </h3>
+
+                        <p class="price"><span class="qty">@item.Count ×</span> £@price</p>
+                    <a class="cross-btn decrease-count"asp-action="RemoveFromBasket" asp-controller="home" asp-route-bookid="@item.Book.Id"><i class="fas fa-times"></i></a>
+                    </div>
+                </div>
+            </div>
+            }
+
+            <div class=" single-cart-block ">
+                <div class="btn-block">
+                    <a asp-action="checkout" asp-controller="home" class="btn">
+                        View Cart <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <a asp-action="checkout" asp-controller="home" class="btn btn--primary">
+                        Check Out <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+<div class="cart-total">
+    <span class="text-number">
+        @count
+    </span>
+    <span class="text-item">
+        Shopping Cart
+    </span>
+    <span class="price">
+        £ @totalprice
+        <i class="fas fa-chevron-down"></i>
+    </span>
+</div>
